@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "66d7656e-0028-456b-a5f0-df907e22afe4",
+		"name": "CalcTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21391495"
+	},
+	"item": [
+		{
+			"name": "POST Получение нового расчета",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"paymentType\": \"ANNUAL\",\r\n  \"insurance\": true,\r\n  \"insuranceIncluding\": true,\r\n  \"insuranceK\": 0.041,\r\n  \"amount\": 100000,\r\n  \"term\": 60,\r\n  \"rate\": 15.5,\r\n  \"startDate\": \"23.10.2024\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/v1/calc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"calc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Получение старого расчета",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/v1/calc?id=8625c69d-9cbd-4249-8dd9-c690ae92a220",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"calc"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "8625c69d-9cbd-4249-8dd9-c690ae92a220"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Удаление старого расчета",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/v1/calc?id=8625c69d-9cbd-4249-8dd9-c690ae92a220",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"calc"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "8625c69d-9cbd-4249-8dd9-c690ae92a220"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OPTION Опции",
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/v1/calc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"calc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH Не разрешен",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/v1/calc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"calc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Не разрешен",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/v1/calc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"calc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HEAD Заголовки",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/v1/calc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"calc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

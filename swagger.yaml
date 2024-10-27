@@ -1,0 +1,162 @@
+swagger: "2.0"
+info:
+  description: "Описание API кредитного калькулятора"
+  version: "1.0.0"
+  title: "LoanCalcService 1.0"
+host: "localhost"
+basePath: "/v1"
+schemes:
+  - "http"
+paths:
+  /calc:
+    post:
+      summary: "Получение нового расчета"
+      operationId: "getNewTarget"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Параметры кредита для расчета"
+          required: true
+          schema:
+            $ref: "#/definitions/calcParams"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/calcResult"
+  /calc/{id}:
+    get:
+      summary: "Получение ранее выполненного расчета по id"
+      operationId: "getOldTarget"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "UUID ранее выполненого расчета"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/calcResult"
+        "404":
+          description: "Не найдено объекта с таким UUID"
+        "503":
+          description: "Сервер запущен в режиме без использования к базе данных"
+    delete:
+      summary: "Удаление ранее выполненного расчета по id"
+      operationId: "deleteOldTarget"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "UUID ранее выполненого расчета"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "Не найдено объекта с таким UUID"
+        "503":
+          description: "Сервер запущен в режиме без использования к базе данных"
+definitions:
+  calcParams:
+    type: "object"
+    properties:
+      paymentType:
+        type: "string"
+        enum:
+          - ANNUAL
+          - DIFF
+        example: "ANNUAL"
+        description: "Тип платежа - аннуитетные или дифференцированные"
+      insurance:
+        type: "boolean"
+        description: "Наличие страхования"
+      insuranceIncluding:
+        type: "boolean"
+        description: "Включение страховки в тело кредита. Сумма кредита увеличится таким образом, чтобы после вычета из нее страхового платежа, сумма 'amount' была получена 'на руки'"
+      insuranceK:
+        type: "number"
+        format: "double"
+        example: "0.041"
+        description: "Коэффициент страхования, абсолютное значение от суммы кредита за весь срок"
+      amount:
+        type: "number"
+        format: "double"
+        example: "100000"
+        description: "Сумма кредита"
+      term:
+        type: "integer"
+        format: "int64"
+        example: "60"
+        description: "Срок кредита, в месяцах"
+      rate:
+        type: "number"
+        format: "double"
+        example: "15.5"
+        description: "Ставка, % годовых"
+      startDate:
+        type: "string"
+        pattern: /([0-9]{2}).(?:[0-9]{2}).([0-9]4})/
+        example: "17.05.2024"
+        description: "Дата выдачи кредита"
+  calcResult:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "341af0f8-62ca-4f4e-a2ef-d96e96981196"
+        description: "UUID сохраненного в БД расчета"
+      fullCreditAmount:
+        type: "number"
+        format: "double"
+        example: "104275.29"
+        description: "Размер кредита"
+      clearCreditAmount:
+        type: "number"
+        format: "double"
+        example: "100000.00"
+        description: "Размер кредита 'чистыми на руки'"
+      term:
+        type: "integer"
+        format: "int64"
+        example: "60"
+        description: "Срок кредита, в месяцах"
+      rate:
+        type: "number"
+        format: "double"
+        example: "15.5"
+        description: "Ставка, % годовых"
+      insuranceAmount:
+        type: "number"
+        format: "double"
+        example: "4275.29"
+        description: "Размер страхового платежа"
+      paymentAmount:
+        type: "number"
+        format: "double"
+        example: "2508.15"
+        description: "Значение аннутетного платежа"
+      payments:
+        items:
+          type: "string"
+          example: ["1,  17.05.2024,  2508.15,  1346.89,  1161.26",
+                    "2, 17.06.2024, 2508.15, 1331.89, 1176.26",
+                    "..."]
+      maxPaymentAmount:
+        type: "number"
+        format: "double"
+        example: "3084.80"
+        description: "Максимальное значение дифференцированного платежа"
+      minPaymentAmount:
+        type: "number"
+        format: "double"
+        example: "1760.36"
+        description: "Минимальное значение дифференцированного платежа"
